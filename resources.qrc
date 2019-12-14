@@ -1,2 +1,20 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/main">
+        <file>Resources/open-archive.png</file>
+        <file>Resources/save.png</file>
+    </qresource>
+    <qresource prefix="/figures">
+        <file>Resources/bbishop.png</file>
+        <file>Resources/bking.png</file>
+        <file>Resources/bknight.png</file>
+        <file>Resources/bpawn.png</file>
+        <file>Resources/bqueen.png</file>
+        <file>Resources/brook.png</file>
+        <file>Resources/wbishop.png</file>
+        <file>Resources/wking.png</file>
+        <file>Resources/wknight.png</file>
+        <file>Resources/wpawn.png</file>
+        <file>Resources/wqueen.png</file>
+        <file>Resources/wrook.png</file>
+    </qresource>
+</RCC>
