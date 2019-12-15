@@ -1,6 +1,9 @@
 #ifndef CHESSSQUARE_H
 #define CHESSSQUARE_H
 
+#include <QPainter>
+
+
 
 class ChessSquare
 {
@@ -14,7 +17,7 @@ public:
     ChessSquare();
     ChessSquare(bool isEmpty, int squareColor, int figureType, int figureColor);
 
-
+    void draw(QPainter* p, double x, double y, double width, double height);
     int getFigureColor() const;
     int getFigureType() const;
     int getSquareColor() const;

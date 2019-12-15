@@ -18,7 +18,7 @@ public:
     ~ChessDoc();
     void load(QString file);
     void save(QString file);
-
+    ChessSquare* getSquare(int row, int col);
 
 
 signals:
