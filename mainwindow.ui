@@ -14,9 +14,46 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad_Chessboard"/>
+    <addaction name="actionSave_Chessboard"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_Chessboard">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/main/Resources/open-archive.png</normaloff>:/main/Resources/open-archive.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load Chessboard</string>
+   </property>
+  </action>
+  <action name="actionSave_Chessboard">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/main/Resources/save.png</normaloff>:/main/Resources/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Chessboard</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
