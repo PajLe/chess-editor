@@ -19,7 +19,7 @@ public:
     void load(QString file);
     void save(QString file);
     ChessSquare* getSquare(int row, int col);
-
+    void setSquare(int row, int col, ChessSquare* square);
 
 signals:
     void chessDataChanged();

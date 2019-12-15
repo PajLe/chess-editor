@@ -46,6 +46,11 @@ ChessSquare *ChessDoc::getSquare(int row, int col)
     return cSquares[row][col];
 }
 
+void ChessDoc::setSquare(int row, int col, ChessSquare *square)
+{
+    cSquares[row][col] = square;
+}
+
 void ChessDoc::initSquares() {
     for (int i = 0; i < 8; i++) {
         if (i == 0) {

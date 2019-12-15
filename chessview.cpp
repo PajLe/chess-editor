@@ -1,10 +1,11 @@
 #include "chessview.h"
 
 #include <QPainter>
-
+#include <QMouseEvent>
+#include <QDebug>
 ChessView::ChessView(QWidget *parent) : QWidget(parent)
 {
-
+    connect(&cDoc, SIGNAL(chessDataChanged()), this, SLOT(repaintChessBoard()));
 }
 
 void ChessView::drawChessboard(QPainter *p)
@@ -31,11 +32,53 @@ void ChessView::drawChessboard(QPainter *p)
         p->drawText(firstFieldX + (oneFieldWidth - 25.0)/2.0, firstFieldY + i*oneFieldHeight + 50, QString("%1").arg(QChar(boardChar)));
         firstFieldX += 100.0;
     }
-
+    firstFieldX -= (73-65)*100.0;
 }
 
 void ChessView::paintEvent(QPaintEvent *e)
 {
     QPainter p(this);
     drawChessboard(&p);
+}
+
+void ChessView::mousePressEvent(QMouseEvent *e)
+{
+    double oneFieldWidth = 100.0;
+    double oneFieldHeight = (height() - 50) / 8.0;
+
+    double firstFieldX = width()/2 - 4*oneFieldWidth;
+    double firstFieldY = 0.0;
+
+    int fieldX = (e->pos().x() - firstFieldX) / oneFieldWidth;
+    int fieldY = (e->pos().y() - firstFieldY) / oneFieldHeight;
+
+    if (!cDoc.getSquare(fieldY, fieldX)->getIsEmpty()) {
+        pressedFigure = cDoc.getSquare(fieldY, fieldX);
+        pressedX = fieldX;
+        pressedY = fieldY;
+    } else {
+        if (pressedFigure) {
+            ChessSquare* p = cDoc.getSquare(fieldY, fieldX);
+
+            int pSquareColor = p->getSquareColor();
+            int pressedSquareColor = pressedFigure->getSquareColor();
+
+            pressedFigure->setSquareColor(pSquareColor);
+            cDoc.setSquare(fieldY, fieldX, pressedFigure);
+
+            p->setSquareColor(pressedSquareColor);
+            cDoc.setSquare(pressedY, pressedX, p);
+
+            pressedFigure = nullptr;
+            pressedX = -1;
+            pressedY = -1;
+
+            emit cDoc.chessDataChanged();
+        }
+    }
+}
+
+void ChessView::repaintChessBoard()
+{
+    repaint();
 }

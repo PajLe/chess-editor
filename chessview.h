@@ -13,10 +13,16 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* e);
+    void mousePressEvent(QMouseEvent* e);
 
 private:
     ChessDoc cDoc;
+    ChessSquare* pressedFigure = nullptr;
+    int pressedX = -1;
+    int pressedY = -1;
 
+public slots:
+    void repaintChessBoard();
 signals:
 
 };
