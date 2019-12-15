@@ -56,3 +56,43 @@ ChessSquare::ChessSquare(bool isEmpty, int squareColor, int figureType, int figu
     this->figureType = figureType;
     this->figureColor = figureColor;
 }
+
+void ChessSquare::draw(QPainter *p, int x, int y, int width, int height)
+{
+    QRectF target(x, y, width, height);
+    if (squareColor == 0) {
+        p->setBrush(Qt::darkRed);
+        p->drawRect(target);
+    } else {
+        p->setBrush(Qt::lightGray);
+        p->drawRect(target);
+    }
+    if (!isEmpty) {
+        QImage image(":/figures/chessFigures.png");
+        double sourceX = 0.0, sourceY = 0.0;
+        if (figureColor == 0) {
+            sourceY = 0.0;
+        } else {
+            sourceY = 200.0;
+        }
+
+        switch(figureType) {
+            case 0:
+                sourceX = 0.0; break;
+            case 1:
+                sourceX = 200.0; break;
+            case 2:
+                sourceX = 400.0; break;
+            case 3:
+                sourceX = 600.0; break;
+            case 4:
+                sourceX = 800.0; break;
+            case 5:
+                sourceX = 1000.0; break;
+        }
+
+        QRectF source(sourceX, sourceY, width, height);
+        p->drawImage(target, image, source);
+    }
+
+}

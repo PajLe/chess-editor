@@ -16,5 +16,6 @@
         <file>Resources/wpawn.png</file>
         <file>Resources/wqueen.png</file>
         <file>Resources/wrook.png</file>
+        <file>Resources/chessFigures.png</file>
     </qresource>
 </RCC>

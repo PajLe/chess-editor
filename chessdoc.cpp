@@ -41,6 +41,11 @@ void ChessDoc::save(QString file)
     f.close();
 }
 
+ChessSquare *ChessDoc::getSquare(int row, int col)
+{
+    return cSquares[row][col];
+}
+
 void ChessDoc::initSquares() {
     for (int i = 0; i < 8; i++) {
         if (i == 0) {

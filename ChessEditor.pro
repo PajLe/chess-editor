@@ -18,12 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     chessdoc.cpp \
     chesssquare.cpp \
+    chessview.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     chessdoc.h \
     chesssquare.h \
+    chessview.h \
     mainwindow.h
 
 FORMS += \
