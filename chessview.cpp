@@ -3,6 +3,8 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QDebug>
+#include "chesssquaredialog.h"
+
 ChessView::ChessView(QWidget *parent) : QWidget(parent)
 {
     connect(&cDoc, SIGNAL(chessDataChanged()), this, SLOT(repaintChessBoard()));
@@ -78,6 +80,47 @@ void ChessView::mousePressEvent(QMouseEvent *e)
 
             emit cDoc.chessDataChanged();
         }
+    }
+}
+
+void ChessView::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    double oneFieldWidth = 100.0;
+    double oneFieldHeight = (height() - 50) / 8.0;
+
+    double firstFieldX = width()/2 - 4*oneFieldWidth;
+    double firstFieldY = 0.0;
+
+    if (e->pos().x() < firstFieldX || e->pos().x() > 8*oneFieldWidth + firstFieldX) return;
+    if (e->pos().y() < firstFieldY || e->pos().y() > 8*oneFieldHeight + firstFieldY) return;
+
+    int fieldX = (e->pos().x() - firstFieldX) / oneFieldWidth;
+    int fieldY = (e->pos().y() - firstFieldY) / oneFieldHeight;
+
+    ChessSquareDialog dlg(this);
+    if (dlg.exec() == QDialog::Accepted) {
+        if (dlg.isEmpty()) cDoc.getSquare(fieldY, fieldX)->setIsEmpty(true);
+        else {
+            QString type = dlg.figureType();
+            QString color = dlg.figureColor();
+            int figureType;
+            int figureColor;
+
+            if (type == "King") figureType = 0;
+            else if (type == "Queen") figureType = 1;
+            else if (type == "Bishop") figureType = 2;
+            else if (type == "Knight") figureType = 3;
+            else if (type == "Rook") figureType = 4;
+            else figureType = 5;
+
+            if (color == "Black") figureColor = 0;
+            else figureColor = 1;
+
+            cDoc.getSquare(fieldY, fieldX)->setIsEmpty(false);
+            cDoc.getSquare(fieldY, fieldX)->setFigureType(figureType);
+            cDoc.getSquare(fieldY, fieldX)->setFigureColor(figureColor);
+        }
+        emit cDoc.chessDataChanged();
     }
 }
 

@@ -14,6 +14,7 @@ public:
 protected:
     void paintEvent(QPaintEvent* e);
     void mousePressEvent(QMouseEvent* e);
+    void mouseDoubleClickEvent(QMouseEvent* e);
 
 private:
     ChessDoc cDoc;

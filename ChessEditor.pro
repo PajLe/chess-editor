@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     chessdoc.cpp \
     chesssquare.cpp \
+    chesssquaredialog.cpp \
     chessview.cpp \
     main.cpp \
     mainwindow.cpp
@@ -25,10 +26,12 @@ SOURCES += \
 HEADERS += \
     chessdoc.h \
     chesssquare.h \
+    chesssquaredialog.h \
     chessview.h \
     mainwindow.h
 
 FORMS += \
+    chesssquaredialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
