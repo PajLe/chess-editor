@@ -49,6 +49,9 @@ void ChessView::mousePressEvent(QMouseEvent *e)
     double firstFieldX = width()/2 - 4*oneFieldWidth;
     double firstFieldY = 0.0;
 
+    if (e->pos().x() < firstFieldX || e->pos().x() > 8*oneFieldWidth + firstFieldX) return;
+    if (e->pos().y() < firstFieldY || e->pos().y() > 8*oneFieldHeight + firstFieldY) return;
+
     int fieldX = (e->pos().x() - firstFieldX) / oneFieldWidth;
     int fieldY = (e->pos().y() - firstFieldY) / oneFieldHeight;
 
