@@ -15,6 +15,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_actionLoad_Chessboard_triggered();
+
+    void on_actionSave_Chessboard_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

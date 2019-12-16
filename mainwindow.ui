@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Chess Editor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/figures/Resources/bknight.png</normaloff>:/figures/Resources/bknight.png</iconset>
   </property>
   <widget class="ChessView" name="centralwidget">
    <property name="minimumSize">
