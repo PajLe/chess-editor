@@ -7,7 +7,7 @@
 
 ChessView::ChessView(QWidget *parent) : QWidget(parent)
 {
-    connect(&cDoc, SIGNAL(chessDataChanged()), this, SLOT(repaintChessBoard()));
+    connect(cDoc, SIGNAL(chessDataChanged()), this, SLOT(repaintChessBoard()));
 }
 
 void ChessView::drawChessboard(QPainter *p)
@@ -25,7 +25,7 @@ void ChessView::drawChessboard(QPainter *p)
     for (i = 0; i < 8; i++) {
         p->drawText(firstFieldX - 35.0, firstFieldY + i*oneFieldHeight + (oneFieldHeight + 35.0)/2.0, QString("%1").arg(8 - i));
         for (int j = 0; j < 8; j++) {
-            ChessSquare* square = cDoc.getSquare(i, j);
+            ChessSquare* square = cDoc->getSquare(i, j);
             square->draw(p, firstFieldX + j*oneFieldWidth, firstFieldY + i*oneFieldHeight, oneFieldWidth, oneFieldHeight);
         }
     }
@@ -57,28 +57,28 @@ void ChessView::mousePressEvent(QMouseEvent *e)
     int fieldX = (e->pos().x() - firstFieldX) / oneFieldWidth;
     int fieldY = (e->pos().y() - firstFieldY) / oneFieldHeight;
 
-    if (!cDoc.getSquare(fieldY, fieldX)->getIsEmpty()) {
-        pressedFigure = cDoc.getSquare(fieldY, fieldX);
+    if (!cDoc->getSquare(fieldY, fieldX)->getIsEmpty()) {
+        pressedFigure = cDoc->getSquare(fieldY, fieldX);
         pressedX = fieldX;
         pressedY = fieldY;
     } else {
         if (pressedFigure) {
-            ChessSquare* p = cDoc.getSquare(fieldY, fieldX);
+            ChessSquare* p = cDoc->getSquare(fieldY, fieldX);
 
             int pSquareColor = p->getSquareColor();
             int pressedSquareColor = pressedFigure->getSquareColor();
 
             pressedFigure->setSquareColor(pSquareColor);
-            cDoc.setSquare(fieldY, fieldX, pressedFigure);
+            cDoc->setSquare(fieldY, fieldX, pressedFigure);
 
             p->setSquareColor(pressedSquareColor);
-            cDoc.setSquare(pressedY, pressedX, p);
+            cDoc->setSquare(pressedY, pressedX, p);
 
             pressedFigure = nullptr;
             pressedX = -1;
             pressedY = -1;
 
-            emit cDoc.chessDataChanged();
+            emit cDoc->chessDataChanged();
         }
     }
 }
@@ -99,7 +99,7 @@ void ChessView::mouseDoubleClickEvent(QMouseEvent *e)
 
     ChessSquareDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
-        if (dlg.isEmpty()) cDoc.getSquare(fieldY, fieldX)->setIsEmpty(true);
+        if (dlg.isEmpty()) cDoc->getSquare(fieldY, fieldX)->setIsEmpty(true);
         else {
             QString type = dlg.figureType();
             QString color = dlg.figureColor();
@@ -116,12 +116,17 @@ void ChessView::mouseDoubleClickEvent(QMouseEvent *e)
             if (color == "Black") figureColor = 0;
             else figureColor = 1;
 
-            cDoc.getSquare(fieldY, fieldX)->setIsEmpty(false);
-            cDoc.getSquare(fieldY, fieldX)->setFigureType(figureType);
-            cDoc.getSquare(fieldY, fieldX)->setFigureColor(figureColor);
+            cDoc->getSquare(fieldY, fieldX)->setIsEmpty(false);
+            cDoc->getSquare(fieldY, fieldX)->setFigureType(figureType);
+            cDoc->getSquare(fieldY, fieldX)->setFigureColor(figureColor);
         }
-        emit cDoc.chessDataChanged();
+        emit cDoc->chessDataChanged();
     }
+}
+
+ChessDoc *ChessView::getCDoc() const
+{
+    return cDoc;
 }
 
 void ChessView::repaintChessBoard()

@@ -15,9 +15,10 @@ protected:
     void paintEvent(QPaintEvent* e);
     void mousePressEvent(QMouseEvent* e);
     void mouseDoubleClickEvent(QMouseEvent* e);
+    ChessDoc* getCDoc() const;
 
 private:
-    ChessDoc cDoc;
+    ChessDoc* cDoc = new ChessDoc(this) ;
     ChessSquare* pressedFigure = nullptr;
     int pressedX = -1;
     int pressedY = -1;
