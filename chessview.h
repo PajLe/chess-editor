@@ -10,12 +10,12 @@ class ChessView : public QWidget
 public:
     explicit ChessView(QWidget *parent = nullptr);
     void drawChessboard(QPainter* p);
+    ChessDoc* getCDoc() const;
 
 protected:
     void paintEvent(QPaintEvent* e);
     void mousePressEvent(QMouseEvent* e);
     void mouseDoubleClickEvent(QMouseEvent* e);
-    ChessDoc* getCDoc() const;
 
 private:
     ChessDoc* cDoc = new ChessDoc(this) ;
